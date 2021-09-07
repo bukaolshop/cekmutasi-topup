@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 
-
 $incomingApiSignature = isset($_SERVER['HTTP_API_SIGNATURE']) ? $_SERVER['HTTP_API_SIGNATURE'] : '';
 
 if( !hash_equals($api_signature_cekmutasi, $incomingApiSignature) ) {
@@ -23,9 +22,9 @@ if(!$koneksi){
   exit('Database gagal terkoneksi');
 }
 
-if( $json->action == "payment_report" )
-{
-  foreach( $json->content->data as $data )
+if( $json_cekmutasi->action == "payment_report" ){
+    
+  foreach( $json_cekmutasi->content->data as $data )
   {
     # Waktu transaksi
     $waktu_transaksi =  date("Y-m-d H:i:s", strtotime($data->unix_timestamp));
@@ -47,15 +46,22 @@ if( $json->action == "payment_report" )
 
     // cek apakah tipe merupakan "dana masuk"
     if( $type == "credit" ) {
-      $sql = "SELECT * FROM data_topup WHERE token_topup = '$berita_transfer' and jumlah_topup='$amount' AND status_bayar = 'unpaid'";
+       
+      $sql = "SELECT * FROM data_topup WHERE jumlah_topup='$amount'";
       if($cek_data_topup = mysqli_query($koneksi,$sql)){
         if(mysqli_num_rows($cek_data_topup)==1){
           //Data ditemukan
 
           //Dapatkan token topup dari database
           $hasil_data_topup=mysqli_fetch_assoc($cek_data_topup);
-          $token_topup=$hasil_data_topup['token_topup'];
-
+          
+          //cek apakah data memiliki status "paid", jika iya maka pembayaran sudah dilakukan, maka dari itu hentikan eksekusi program
+          if($hasil_data_topup['status_bayar']=="paid"){
+             exit("Transaksi ini sudah selesai");
+          }
+          
+          $token_topup=mysqli_real_escape_string($koneksi,$hasil_data_topup['token_topup']);
+ 
 
           // Lakukan konfirmasi topup saldo member menggunakan API bukaOlshop
           // Setting API key bukaOlshop
@@ -76,20 +82,32 @@ if( $json->action == "payment_report" )
 
           $hasil = curl_exec($ch);
           curl_close ($ch);
-
+          
           //Cek apakah konfirmasi saldo berhasil
           $json_api_bukaolshop=json_decode($hasil);
-          if($json_api_bukaolshop->status=="ok"){
+          if($json_api_bukaolshop->code=="200"){
             //Konfirmasi saldo berhasil
             //Ubah status topup di lokal database menjadi "paid"
              mysqli_query($koneksi,"UPDATE `data_topup` SET `status_bayar` = 'paid' WHERE `token_topup` = '$token_topup';");
+             
+             // print pesan sukses
+             echo "saldo dengan token ".$token_topup." berhasil ditambah ke saldo member";
+          }else{
+             // saldo gagal ditambah, print pesan error
+             print_r($json_api_bukaolshop);
           }
+
+           
+        }else if(mysqli_num_rows($cek_data_topup)>1){
+            echo "jumlah topup di local database lebih dari 1";
         }
+      }else{
+          echo "cek data gagal";
       }
     }
 
-
   }
 }
+
 
 ?>

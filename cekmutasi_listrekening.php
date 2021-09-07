@@ -1,6 +1,14 @@
 <?php
 require_once 'config.php';
 
+function FormatRupiah($angka){
+  if($angka=="" or !is_numeric($angka)){
+    return "Rp0,00";
+  }else{
+    $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+    return $hasil_rupiah;
+  }
+  }
 
 //Periksa secret key
 if(isset($_POST['secret_callback'])){
@@ -38,9 +46,13 @@ if(!$koneksi){
   $total_topup=mysqli_real_escape_string($koneksi,$_POST['total_topup']);
 
 
-$sql = "SELECT * FROM data_topup WHERE token_topup = '$token_topup'";
+$sql = "SELECT * FROM data_topup WHERE jumlah_topup = '$total_topup'";
 if($cek_data_topup = mysqli_query($koneksi,$sql)){
-  if(mysqli_num_rows($cek_data_topup)==1){
+    
+// cek apakah total data lebih dari 1, jika iya, hentikan eksekusi program karena jumlah topup + kode unik hanya boleh ada 1 data saja.    
+  if(mysqli_num_rows($cek_data_topup)>1){
+    exit("Pembayaran gagal di muat, coba lakukan request topup kembali");
+  }else if(mysqli_num_rows($cek_data_topup)==1){
     $hasil_cek=mysqli_fetch_assoc($cek_data_topup);
     if($hasil_cek['status_bayar']=="paid"){
       exit("Transaksi ini sudah selesai");
@@ -48,7 +60,7 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
   }else{
     // Insert data ke lokal database, jika insert gagal dilakukan, hentikan eksekusi program
     if(!mysqli_query($koneksi,"INSERT INTO `data_topup` (`token_topup`, `jumlah_topup`, `status_bayar`, `tanggal_token`, `tanggal_dibayar`) VALUES ('$token_topup', '$total_topup', 'unpaid', CURRENT_TIMESTAMP, NULL);")){
-      exit("Pembayaran gagal di muat");
+      exit("Pembayaran gagal di muat, coba lakukan request topup kembali");
     }
   }
 }
@@ -288,14 +300,3 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
 </script>
 </html>
 
-
-<?php
-function FormatRupiah($angka){
-if($angka=="" or !is_numeric($angka)){
-  return "Rp0,00";
-}else{
-	$hasil_rupiah = "Rp" . number_format($angka,0,',','.');
-	return $hasil_rupiah;
-}
-}
- ?>
