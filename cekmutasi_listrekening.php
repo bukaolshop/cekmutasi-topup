@@ -152,29 +152,7 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
           </div>
         </div>
 
-        <div class="py-2 px-3">
-          <div class="second pl-2 d-flex py-2">
-            <div style="width:25%;margin:10px"><img src="https://image.cermati.com/v1428073854/brands/avqoa9rfng8bklutfhm6.jpg" class="img-thumbnail"/></div>
-            <div class="border-left pl-2">
-              <span class="head">BANK BCA</span>
-              <div><span class="amount" id="rek_3">987654321</span></div>
-              <span><button type="button" class="btn btn-info btn-sm " onclick="copyToClipboard('#rek_3')">Copy rekening BCA</button></span>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="py-2 px-3">
-          <div class="second pl-2 d-flex py-2">
-            <div style="width:25%;margin:10px"><img src="https://image.cermati.com/v1428073854/brands/avqoa9rfng8bklutfhm6.jpg" class="img-thumbnail"/></div>
-            <div class="border-left pl-2">
-              <span class="head">BANK BCA</span>
-              <div><span class="amount" id="rek_3">987654321</span></div>
-              <span><button type="button" class="btn btn-info btn-sm " onclick="copyToClipboard('#rek_3')">Copy rekening BCA</button></span>
-            </div>
-          </div>
-        </div>
-
+       
 
 
         <div class="px-3 pt-4 pb-3">
