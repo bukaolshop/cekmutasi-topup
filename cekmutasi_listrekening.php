@@ -56,6 +56,9 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
     $hasil_cek=mysqli_fetch_assoc($cek_data_topup);
     if($hasil_cek['status_bayar']=="paid"){
       exit("Transaksi ini sudah selesai");
+    }else if($hasil_cek['token_topup']!=$token_topup){
+      // token topup yg dikirim oleh server bukaolshop tidak cocok dengan lokal database, demi keamanan data, minta member untuk request ulang agar mendapatkan token yang baru
+      exit("Pembayaran gagal di muat, coba lakukan request topup kembali");
     }
   }else{
     // Insert data ke lokal database, jika insert gagal dilakukan, hentikan eksekusi program
