@@ -88,7 +88,7 @@ if( $json_cekmutasi->action == "payment_report" ){
           if($json_api_bukaolshop->code=="200"){
             //Konfirmasi saldo berhasil
             //Ubah status topup di lokal database menjadi "paid"
-             mysqli_query($koneksi,"UPDATE `data_topup` SET `status_bayar` = 'paid' WHERE `token_topup` = '$token_topup';");
+             mysqli_query($koneksi,"UPDATE `data_topup` SET `status_bayar` = 'paid',`tanggal_dibayar`=CURRENT_TIMESTAMP WHERE `token_topup` = '$token_topup';");
              
              // print pesan sukses
              echo "saldo dengan token ".$token_topup." berhasil ditambah ke saldo member";
