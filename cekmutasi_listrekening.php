@@ -68,6 +68,10 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
   }
 }
 
+//Memasukkan url file "cekmutasi_cekpembayaran.php" dibawah.
+//Anda bisa memasukkan link full url, atau jika file berada didalam satu folder, anda cukup memasukkan nama file nya saja.
+$url_cek_mutasi="cekmutasi_cekpembayaran.php?token=".htmlentities($token_topup);
+
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -160,7 +164,7 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
 
         <div class="px-3 pt-4 pb-3">
           <p>Sudah melakukan pembayaran? tekan tombol dibawah untuk mengecek status pembayaran anda.</p>
-          <button type="button" class="btn btn-primary ">Cek Pembayaran</button>
+          <a href="<?=$url_cek_mutasi?>"><button type="button" class="btn btn-primary ">Cek Pembayaran</button></a>
         </div>
       </div>
     </div>
@@ -258,22 +262,11 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
 
   <script type="text/javascript">
   function copyToClipboard(element) {
-    // Create a "hidden" input
     var aux = document.createElement("input");
-
-    // Assign it the value of the specified element
     aux.setAttribute("value", $(element).text());
-
-    // Append it to the body
     document.body.appendChild(aux);
-
-    // Highlight its content
     aux.select();
-
-    // Copy the highlighted text
     document.execCommand("copy");
-
-    // Remove it from the body
     document.body.removeChild(aux);
 
     alert("Nomor rekening telah dicopy : "+$(element).text());

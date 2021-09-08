@@ -34,7 +34,7 @@ if( $json_cekmutasi->action == "payment_report" ){
 
     # Jumlah (2 desimal) : 50000.00
     # Ubah langsung data desimal ke integer
-    $amount = (int)$data->amount;
+    $amount = mysqli_real_escape_string($koneksi,(int)$data->amount);
 
     # Berita transfer
     # Berita transfer ini harus berisi token_topup
