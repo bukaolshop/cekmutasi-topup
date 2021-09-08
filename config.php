@@ -17,4 +17,8 @@ $username="bukaolsh_topup";
 $password_sql="bukaolshop123";
 $nama_database="bukaolsh_cekmutasi_topup";
 
+
+//Memasukkan url file "cekmutasi_cekpembayaran.php" dibawah.
+$url_cek_mutasi="https://bukaolshop.my.id/cekmutasi/cekmutasi_cekpembayaran.php";
+
 ?>

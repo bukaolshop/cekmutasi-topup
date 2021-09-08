@@ -69,9 +69,10 @@ if($cek_data_topup = mysqli_query($koneksi,$sql)){
   }
 }
 
-//Memasukkan url file "cekmutasi_cekpembayaran.php" dibawah.
-//Anda bisa memasukkan link full url, atau jika file berada didalam satu folder, anda cukup memasukkan nama file nya saja.
-$url_cek_mutasi="cekmutasi_cekpembayaran.php?token=".htmlentities($token_topup);
+// tambahkan parameter token pada url cek mutasi.
+// Contoh hasil akhir url akan menjadi https://bukaolshop.my.id/cekmutasi/cekmutasi_cekpembayaran.php?token=1234567
+$url_cek_mutasi.="?token=".htmlentities($token_topup);
+
 
  ?>
 <!DOCTYPE html>
