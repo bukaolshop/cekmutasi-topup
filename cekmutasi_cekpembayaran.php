@@ -18,7 +18,8 @@ if(isset($_GET['token']) and ctype_digit($_GET['token'])){
       $hasil_cek=mysqli_fetch_assoc($cek_data_topup);
       if($hasil_cek['status_bayar']=="paid"){
         // Token topup ini telah memiliki status paid, alihkan halaman ke pesan selesai
-        header('location:pesan_cekmutasi.php?status=paid&bukaolshop_finish_page=true');
+        header('location:pesan_cekmutasi.php?status=sukses&bukaolshop_finish_page=true');
+        exit();
       }else{
         // Set variabel jumlah_topup
         $jumlah_topup=$hasil_cek['jumlah_topup'];
@@ -26,6 +27,7 @@ if(isset($_GET['token']) and ctype_digit($_GET['token'])){
     }else{
       // Token topup tidak ditemukan di database, Alihkan halaman ke pesan tidak ditemukan
       header('location:pesan_cekmutasi.php?status=notfound&bukaolshop_finish_page=true');
+      exit();
     }
 
 
@@ -113,10 +115,12 @@ if(isset($_GET['token']) and ctype_digit($_GET['token'])){
 
                 // alihkan halaman ke status paid
                 // tambahkan parameter bukaolshop_finish_page=true agar jika user tekan tombol kembali, halaman override langung tertutup.
-                header('location:pesan_cekmutasi.php?status=paid&bukaolshop_finish_page=true');
+                header('location:pesan_cekmutasi.php?status=sukses&bukaolshop_finish_page=true');
+                exit();
               }else{
                 // saldo gagal ditambah, print pesan error
                 header('location:pesan_cekmutasi.php?status=error&bukaolshop_finish_page=true');
+                exit();
               }
 
             }
