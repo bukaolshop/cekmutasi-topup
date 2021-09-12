@@ -59,7 +59,7 @@ if(isset($_GET['token']) and ctype_digit($_GET['token'])){
         CURLOPT_URL             => "https://api.cekmutasi.co.id/v1/bank/search",
         CURLOPT_POST            => true,
         CURLOPT_POSTFIELDS      => http_build_query($data),
-        CURLOPT_HTTPHEADER      => ["Api-Key: $api_signature_cekmutasi", "Accept: application/json"], // tanpa tanda kurung
+        CURLOPT_HTTPHEADER      => ["Api-Key: $api_key_cekmutasi", "Accept: application/json"], // tanpa tanda kurung
         CURLOPT_RETURNTRANSFER  => true,
         CURLOPT_HEADER          => false,
         CURLOPT_CONNECTTIMEOUT  => 10,
