@@ -91,7 +91,7 @@ $url_cek_mutasi.="?token=".htmlentities($token_topup);
     <div class="card">
       <div>
         <div class="d-flex pt-4 pl-3">
-          <div><img src="https://testing.bukaolshop.net/cekmutasi/logo.png" width="80" height="80" /></div>
+          <div><img src="https://storage3.bukaolshop.com/logo.png" width="80" height="80" /></div>
           <div class="mt-3 pl-2"><span class="name">Nama aplikasi</span>
 
           </div>
