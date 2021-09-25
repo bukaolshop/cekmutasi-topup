@@ -1,8 +1,11 @@
 ## Note
 Setelah anda mengikuti video tutorial PART 3 Integrasi dengan cekmutasi.co.id, pastikan anda melakukan pengaturan pada file `cekmutasi_cekpembayaran.php`
+
 **Lihat gambar dibawah**
-![enter image description here](https://storage3.bukaolshop.com/other_image/ss_cekmutasi.png)
+
+![contoh cekmutasi](https://storage3.bukaolshop.com/other_image/ss_cekmutasi.png)
 Lakukan pergantian pada `service_code` dan `account_number`
+
 `service_code` bisa anda sesuaikan dengan bank yang ada daftarkan di cekmutasi.co.id. Berikut ini daftar yang bisa anda inputkan:
 
 **bri** = Bank BRI
@@ -26,5 +29,6 @@ Pastikan tidak ada kesalahan penulisan kode agar pengecekan dapat berjalan denga
 
 ## Tutorial PART 3 integrasi topup otomatis dengan cekmutasi.co.id bisa dilihat di video berikut
 Klik gambar dibawah untuk memutar video.
+
 [![IMAGE ALT TEXT HERE](http://i3.ytimg.com/vi/lLIYg6XUPu0/hqdefault.jpg)](https://www.youtube.com/watch?v=lLIYg6XUPu0&t=267s)
 
