@@ -23,6 +23,7 @@ Lakukan pergantian pada `service_code` dan `account_number`
 `account_number` merupakan nomor rekening anda. Contoh misalnya anda menggunakan bank **BNI** dengan nomor rekening **8836324995**, maka anda harus mengganti nilai tersebut menjadi :
 
 "service_code" => "bni",
+
 "account_number" => "8836324995",
 
 Pastikan tidak ada kesalahan penulisan kode agar pengecekan dapat berjalan dengan lancar.
